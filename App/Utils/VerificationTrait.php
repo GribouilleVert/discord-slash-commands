@@ -16,6 +16,10 @@ trait VerificationTrait {
         $timestamp = $request->getHeaderLine('X-Signature-Timestamp');
         $body = (string)$request->getBody();
 
+        if (((int)$timestamp <= time() - 5 OR (int) $timestamp >= time() + 5) AND !IGNORE_TIME) {
+            throw new UnauthorizedException('Timestamp out of date (max 5 second diff allowed). To disable the timestamp verification set IGNORE_TIME constant to true.');
+        }
+
         $message = $timestamp . $body;
         $key = new Asymmetric\SignaturePublicKey(new HiddenString(hex2bin(PUBLIC_KEY)));
 
