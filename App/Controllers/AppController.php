@@ -9,6 +9,7 @@ use App\Utils\VerificationTrait;
 use DI\Container;
 use League\Route\Http\Exception\BadRequestException;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TypeError;
 
@@ -32,7 +33,7 @@ class AppController {
         $this->container = $container;
     }
 
-    public function endpoint(ServerRequestInterface $request): array
+    public function endpoint(ServerRequestInterface $request): ResponseInterface
     {
         $this->checkSignature($request);
         $interactionData = $this->decodeJson($request);
