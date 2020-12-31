@@ -7,6 +7,7 @@ use App\Utils\Commands\InteractionResponse;
 use App\Utils\DecoderTrait;
 use App\Utils\VerificationTrait;
 use DI\Container;
+use GuzzleHttp\Psr7\Uri;
 use League\Route\Http\Exception\BadRequestException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -35,6 +36,10 @@ class AppController {
 
     public function endpoint(ServerRequestInterface $request): ResponseInterface
     {
+        if (is_string(REQUEST_CATCHER_URL)) {
+            $this->httpClient->sendRequest($request->withUri(new Uri(REQUEST_CATCHER_URL)));
+        }
+
         $this->checkSignature($request);
         $interactionData = $this->decodeJson($request);
 
