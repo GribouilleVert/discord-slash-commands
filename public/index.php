@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 
 if (is_string(SENTRY_DSN)) {
     Sentry\init([
-        'dsn' => 'https://8eed2f26c45f4e39b1c02ffd4f6ff219@o342392.ingest.sentry.io/5569077',
+        'dsn' => SENTRY_DSN,
         'capture_silenced_errors' => true,
     ]);
 }
@@ -36,7 +36,6 @@ $router->middlewares(Framework\array_resolve([
 ], $container));
 
 $router->post('/endpoint', [App\Controllers\AppController::class, 'endpoint']);
-$router->get('/endpoint', [App\Controllers\AppController::class, 'endpoint']);
 
 //---------------------
 
