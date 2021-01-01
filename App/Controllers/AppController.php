@@ -14,6 +14,7 @@ use League\Route\Http\Exception\BadRequestException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use TypeError;
 
 class AppController {
@@ -30,10 +31,16 @@ class AppController {
      */
     private Container $container;
 
-    public function __construct(ClientInterface $httpClient, Container $container)
+    /**
+     * @var LoggerInterface
+     */
+    private LoggerInterface $logger;
+
+    public function __construct(ClientInterface $httpClient, Container $container, LoggerInterface $logger)
     {
         $this->httpClient = $httpClient;
         $this->container = $container;
+        $this->logger = $logger;
     }
 
     public function endpoint(ServerRequestInterface $request): ResponseInterface
@@ -81,21 +88,21 @@ class AppController {
         return $response->httpResponse();
     }
 
-    private function resolveCallable($command): ?callable
+    private function resolveCallable($command, ?array $subHandlerSection = null): ?callable
     {
-        $commands = require 'config/commands.php';
+        $commands = ($subHandlerSection ?? require 'config/commands.php');
         if ($command instanceof Interaction) {
             $callable = $commands[$command->getCommandName()]??$commands[$command->data->id]??null;
             $subCommand = $command->getOptions()->getSubcommand();
         } elseif ($command instanceof ApplicationCommandInteractionDataOption) {
             $callable = $commands[$command->name]??null;
-            $subCommand = $command->options->getSubcommand();
+            $subCommand = $command->options !== null ? $command->options->getSubcommand() : null;
         } else {
             throw new Exception('Unable to resolve command: command type is neither a command nor a subcommand');
         }
 
         if (is_object($subCommand) AND is_array($callable) && array_key_exists($subCommand->name, $callable)) {
-            return $this->resolveCallable($subCommand);
+            return $this->resolveCallable($subCommand, $callable);
         }
 
         if (is_string($callable) && strpos($callable, '::') !== false) {
@@ -112,6 +119,10 @@ class AppController {
 
         if (is_string($callable) && method_exists($callable, '__invoke')) {
             $callable = $this->container->get($callable);
+        }
+
+        if (!is_callable($callable)) {
+            return null;
         }
 
         return $callable;
