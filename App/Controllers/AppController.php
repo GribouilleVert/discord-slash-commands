@@ -1,12 +1,14 @@
 <?php
 namespace App\Controllers;
 
+use App\Utils\Commands\ApplicationCommandInteractionDataOption;
 use App\Utils\Commands\Interaction;
 use App\Utils\Commands\InteractionApplicationCommandCallbackData;
 use App\Utils\Commands\InteractionResponse;
 use App\Utils\DecoderTrait;
 use App\Utils\VerificationTrait;
 use DI\Container;
+use Exception;
 use GuzzleHttp\Psr7\Uri;
 use League\Route\Http\Exception\BadRequestException;
 use Psr\Http\Client\ClientInterface;
@@ -79,10 +81,22 @@ class AppController {
         return $response->httpResponse();
     }
 
-    private function resolveCallable(Interaction $interaction): ?callable
+    private function resolveCallable($command): ?callable
     {
         $commands = require 'config/commands.php';
-        $callable = $commands[$interaction->getCommandName()]??$commands[$interaction->data->id]??null;
+        if ($command instanceof Interaction) {
+            $callable = $commands[$command->getCommandName()]??$commands[$command->data->id]??null;
+            $subCommand = $command->getOptions()->getSubcommand();
+        } elseif ($command instanceof ApplicationCommandInteractionDataOption) {
+            $callable = $commands[$command->name]??null;
+            $subCommand = $command->options->getSubcommand();
+        } else {
+            throw new Exception('Unable to resolve command: command type is neither a command nor a subcommand');
+        }
+
+        if (is_object($subCommand) AND is_array($callable) && array_key_exists($subCommand->name, $callable)) {
+            return $this->resolveCallable($subCommand);
+        }
 
         if (is_string($callable) && strpos($callable, '::') !== false) {
             $callable = explode('::', $callable);
