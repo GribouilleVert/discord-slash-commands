@@ -46,7 +46,7 @@ class InteractionResponse {
     public function httpResponse(): ResponseInterface
     {
         $_ = ['type' => $this->type];
-        if ($this->data !== null) $_['data'] = $this->data;
+        if ($this->data !== null) $_['data'] = $this->data->serialize();
         return new JsonResponse($_, 200);
     }
 

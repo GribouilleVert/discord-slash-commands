@@ -4,25 +4,24 @@ namespace App\Utils\Commands;
 class ApplicationCommandInteractionDataOption {
 
     public const TYPE_VALUE = 0x1;
-    public const TYPE_SUBGROUP = 0x2;
+    public const TYPE_SUBCOMMAND = 0x2;
 
     public string $name;
-    public ?string $value = null;
-    public ?array $options = null;
+    public $value = null;
+    public ?ApplicationCommandInteractionDataOptions $options = null;
     public int $type;
 
     public function __construct(object $data)
     {
         $this->name = $data->name;
-        if (is_array($data->options ?? null)) {
-            $this->options = array_map(
-                fn(object $option) => new self($option),
-                $data->options
-            );
-            $this->type = self::TYPE_SUBGROUP;
-        } else {
+        if (property_exists($data, 'value')) {
             $this->value = $data->value;
             $this->type = self::TYPE_VALUE;
+        } else {
+            if (is_array($data->option??null)) {
+                $this->options = new ApplicationCommandInteractionDataOptions($data->option);
+            }
+            $this->type = self::TYPE_SUBCOMMAND;
         }
     }
 

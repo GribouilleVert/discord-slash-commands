@@ -42,14 +42,15 @@ class Interaction {
     }
 
     /**
-     * @return array
+     * @return ApplicationCommandInteractionDataOptions
      * @throws Exception Si l'interaction n'es pas une commande
      */
-    public function getOptions(): array
+    public function getOptions(): ApplicationCommandInteractionDataOptions
     {
         if ($this->type !== self::TYPE_APPLICATION_COMMAND)
             throw new Exception("This interaction is not a command");
 
+        return $this->data->options;
     }
 
 }
