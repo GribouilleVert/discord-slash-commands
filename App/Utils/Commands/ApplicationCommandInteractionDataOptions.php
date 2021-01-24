@@ -8,6 +8,7 @@ use Iterator;
 
 class ApplicationCommandInteractionDataOptions implements Countable, ArrayAccess, Iterator {
 
+    public array $debugOptions = [];
     private array $options = [];
     private array $valuesIndex = [];
     private array $commandsIndex = [];
@@ -19,6 +20,7 @@ class ApplicationCommandInteractionDataOptions implements Countable, ArrayAccess
         foreach ($options as $i => $_option) {
             $option = new ApplicationCommandInteractionDataOption($_option);
             $this->options[$i] = $option;
+            $this->debugOptions[$i] = $_option;
             if ($option->type === ApplicationCommandInteractionDataOption::TYPE_VALUE) {
                 $this->valuesIndex[$option->name] = $i;
             } elseif ($option->type === ApplicationCommandInteractionDataOption::TYPE_SUBCOMMAND) {

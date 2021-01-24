@@ -1,6 +1,8 @@
 <?php
 namespace App\Utils\Commands;
 
+use Exception;
+
 class ApplicationCommandInteractionDataOption {
 
     public const TYPE_VALUE = 0x1;
@@ -18,11 +20,23 @@ class ApplicationCommandInteractionDataOption {
             $this->value = $data->value;
             $this->type = self::TYPE_VALUE;
         } else {
-            if (is_array($data->option??null)) {
-                $this->options = new ApplicationCommandInteractionDataOptions($data->option);
+            if (is_array($data->options??null)) {
+                $this->options = new ApplicationCommandInteractionDataOptions($data->options);
             }
             $this->type = self::TYPE_SUBCOMMAND;
         }
+    }
+
+    /**
+     * @return ApplicationCommandInteractionDataOptions|null
+     * @throws Exception
+     */
+    public function getOptions(): ?ApplicationCommandInteractionDataOptions
+    {
+        if ($this->type !== self::TYPE_SUBCOMMAND) {
+            throw new Exception('Only sub commands can have sub options');
+        }
+        return $this->options;
     }
 
 }
