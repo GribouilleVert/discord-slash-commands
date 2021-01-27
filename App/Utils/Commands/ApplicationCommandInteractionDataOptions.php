@@ -72,12 +72,15 @@ class ApplicationCommandInteractionDataOptions implements Countable, ArrayAccess
 
     public function offsetExists($offset): bool
     {
-        return array_key_exists($offset, $this->options);
+        return array_key_exists($offset, $this->valuesIndex);
     }
 
-    public function offsetGet($offset): ApplicationCommandInteractionDataOption
+    public function offsetGet($offset): ?ApplicationCommandInteractionDataOption
     {
-        return $this->options[$offset];
+        if (!$this->offsetExists($offset)) {
+            return null;
+        }
+        return $this->options[$this->valuesIndex[$offset]];
     }
 
     public function offsetSet($offset, $value)
