@@ -3,6 +3,7 @@
 define('PRODUCTION', false);
 
 define('PUBLIC_KEY', 'Your discord public key');
+define('BOT_TOKEN', null); #The token of your bot if you plan to use discord api
 
 //Set to your sentry dsn to enable sentry error catching
 define('SENTRY_DSN', null);

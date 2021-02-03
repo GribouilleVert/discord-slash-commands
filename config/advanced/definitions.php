@@ -8,6 +8,7 @@ use Laminas\Diactoros\ResponseFactory;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
+use RestCord\DiscordClient;
 
 return [
 
@@ -25,5 +26,8 @@ return [
     Engine::class => \DI\factory(EngineFactory::class),
     ClientInterface::class => \DI\autowire(MultiCurl::class)
         ->constructor(new ResponseFactory()),
+    DiscordClient::class => fn(ContainerInterface $c) => new DiscordClient([
+        'token' => BOT_TOKEN,
+    ]),
 
 ];

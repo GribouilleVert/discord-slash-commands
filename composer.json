@@ -36,7 +36,8 @@
         "pagerfanta/pagerfanta": "^2.4",
         "paragonie/halite": "4",
         "kriswallsmith/buzz": "^1.2",
-        "sentry/sdk": "^3.1"
+        "sentry/sdk": "^3.1",
+        "restcord/restcord": "^0.5.0"
     },
     "require-dev": {
         "middlewares/whoops": "^2.0",
