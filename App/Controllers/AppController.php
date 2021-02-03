@@ -14,7 +14,6 @@ use League\Route\Http\Exception\BadRequestException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Log\LoggerInterface;
 use TypeError;
 
 class AppController {
@@ -31,16 +30,10 @@ class AppController {
      */
     private Container $container;
 
-    /**
-     * @var LoggerInterface
-     */
-    private LoggerInterface $logger;
-
-    public function __construct(ClientInterface $httpClient, Container $container, LoggerInterface $logger)
+    public function __construct(ClientInterface $httpClient, Container $container)
     {
         $this->httpClient = $httpClient;
         $this->container = $container;
-        $this->logger = $logger;
     }
 
     public function endpoint(ServerRequestInterface $request): ResponseInterface
@@ -72,7 +65,7 @@ class AppController {
                 } else {
                     $response = new InteractionResponse(
                         InteractionResponse::TYPE_MESSAGE,
-                        new InteractionApplicationCommandCallbackData('Command not implemented.')
+                        new InteractionApplicationCommandCallbackData('Command not implemented.', null, false, [], true)
                     );
                 }
                 break;
