@@ -13,7 +13,7 @@ class Interaction {
     public ?ApplicationCommandInteractionData $data;
     public ?string $guildId;
     public ?string $channelId;
-    public ?object $member;
+    public ?GuildMember $member;
     private string $token;
     public int $version;
 
@@ -24,7 +24,7 @@ class Interaction {
         $this->data = isset($data->data) ? new ApplicationCommandInteractionData($data->data) : null;
         $this->guildId = $data->guild_id;
         $this->channelId = $data->channel_id;
-        $this->member = $data->member; //Todo: Guild Member Structure
+        $this->member = $data->member !== null ? new GuildMember($data->member) : null;
         $this->token = $data->token;
         $this->version = $data->version;
     }
@@ -42,10 +42,10 @@ class Interaction {
     }
 
     /**
-     * @return ApplicationCommandInteractionDataOptions
+     * @return null|ApplicationCommandInteractionDataOptions
      * @throws Exception Si l'interaction n'es pas une commande
      */
-    public function getOptions(): ApplicationCommandInteractionDataOptions
+    public function getOptions(): ?ApplicationCommandInteractionDataOptions
     {
         if ($this->type !== self::TYPE_APPLICATION_COMMAND)
             throw new Exception("This interaction is not a command");
