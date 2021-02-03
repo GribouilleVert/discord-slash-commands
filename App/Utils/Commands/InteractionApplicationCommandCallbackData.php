@@ -3,10 +3,11 @@ namespace App\Utils\Commands;
 
 class InteractionApplicationCommandCallbackData {
 
-    private string $content;
+    private string          $content;
     private AllowedMentions $allowedMentions;
-    private bool $tts;
+    private bool            $tts;
     private array $embeds;
+    private bool  $ephemeral;
 
     /**
      * InteractionApplicationCommandCallbackData constructor.
@@ -14,17 +15,20 @@ class InteractionApplicationCommandCallbackData {
      * @param AllowedMentions|null $allowedMentions The mentions allowed in the message
      * @param bool $tts If the message should be read with text to speech
      * @param array $embeds Embeds objects, up to 10, see https://discord.com/developers/docs/resources/channel#embed-object
+     * @param bool $ephemeral Si le message est éphémère
      */
     public function __construct(
         string $content,
         ?AllowedMentions $allowedMentions = null,
         bool $tts = false,
-        array $embeds = []
+        array $embeds = [],
+        bool $ephemeral = false
     ) {
         $this->content = $content;
         $this->allowedMentions = $allowedMentions ?? new AllowedMentions();
         $this->tts = $tts;
         $this->embeds = $embeds;
+        $this->ephemeral = $ephemeral;
     }
 
     /**
@@ -36,7 +40,8 @@ class InteractionApplicationCommandCallbackData {
             'tts' => $this->tts,
             'content' => $this->content,
             'embeds' => $this->embeds,
-            'allowed_mentions' => $this->allowedMentions->serialize()
+            'allowed_mentions' => $this->allowedMentions->serialize(),
+            'flags' => $this->ephemeral ? 64 : 0,
         ];
     }
 
