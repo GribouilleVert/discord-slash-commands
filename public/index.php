@@ -20,7 +20,7 @@ $staticInstancier->initClass(Framework\Database\Sprinkler::class);
 //---------------------
 
 $responseFactory = new Laminas\Diactoros\ResponseFactory;
-$strategy = (new App\Strategies\AppStrategy($responseFactory));
+$strategy = (new SlashCommands\Strategies\EndpointStrategy($responseFactory));
 $strategy->setContainer($container);
 $router   = (new League\Route\Router);
 $router->setStrategy($strategy);
@@ -35,7 +35,7 @@ $router->middlewares(Framework\array_resolve([
     Framework\Middlewares\MethodDetectorMiddleware::class,
 ], $container));
 
-$router->post('/endpoint', [App\Controllers\AppController::class, 'endpoint']);
+$router->post('/endpoint', [SlashCommands\Controllers\AppController::class, 'endpoint']);
 
 //---------------------
 

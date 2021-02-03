@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils;
+namespace SlashCommands\Utils;
 
 use Psr\Http\Message\ServerRequestInterface;
 use const JSON_ERROR_NONE;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils\Commands;
+namespace SlashCommands\Utils\Commands;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;

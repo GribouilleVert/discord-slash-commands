@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils\Commands;
+namespace SlashCommands\Utils\Commands;
 
 use ArrayAccess;
 use Countable;

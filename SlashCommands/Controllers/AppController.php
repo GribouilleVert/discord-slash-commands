@@ -1,12 +1,12 @@
 <?php
-namespace App\Controllers;
+namespace SlashCommands\Controllers;
 
-use App\Utils\Commands\ApplicationCommandInteractionDataOption;
-use App\Utils\Commands\Interaction;
-use App\Utils\Commands\InteractionApplicationCommandCallbackData;
-use App\Utils\Commands\InteractionResponse;
-use App\Utils\DecoderTrait;
-use App\Utils\VerificationTrait;
+use SlashCommands\Utils\Commands\ApplicationCommandInteractionDataOption;
+use SlashCommands\Utils\Commands\Interaction;
+use SlashCommands\Utils\Commands\InteractionApplicationCommandCallbackData;
+use SlashCommands\Utils\Commands\InteractionResponse;
+use SlashCommands\Utils\DecoderTrait;
+use SlashCommands\Utils\VerificationTrait;
 use DI\Container;
 use Exception;
 use GuzzleHttp\Psr7\Uri;

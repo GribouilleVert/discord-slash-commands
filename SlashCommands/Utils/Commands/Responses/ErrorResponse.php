@@ -1,8 +1,8 @@
 <?php
-namespace App\Utils\Commands\Responses;
+namespace SlashCommands\Utils\Commands\Responses;
 
-use App\Utils\Commands\InteractionApplicationCommandCallbackData;
-use App\Utils\Commands\InteractionResponse;
+use SlashCommands\Utils\Commands\InteractionApplicationCommandCallbackData;
+use SlashCommands\Utils\Commands\InteractionResponse;
 use Exception;
 
 class ErrorResponse extends InteractionResponse {

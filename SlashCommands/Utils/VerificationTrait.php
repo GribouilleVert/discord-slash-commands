@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils;
+namespace SlashCommands\Utils;
 
 use ParagonIE\Halite\Halite;
 use ParagonIE\Halite\HiddenString;
