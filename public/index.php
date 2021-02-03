@@ -14,21 +14,19 @@ if (is_string(SENTRY_DSN)) {
 |    CONTAINER     |
 \******************/
 $container = (new Framework\Factories\ContainerFactory)();
-
-$staticInstancier = $container->get(Framework\Utils\StaticInstancier::class);
-$staticInstancier->initClass(Framework\Database\Sprinkler::class);
+Framework\Factories\StaticInstancierFactory::init($container);
 //---------------------
-
-$responseFactory = new Laminas\Diactoros\ResponseFactory;
-$strategy = (new SlashCommands\Strategies\EndpointStrategy($responseFactory));
-$strategy->setContainer($container);
-$router   = (new League\Route\Router);
-$router->setStrategy($strategy);
 
 /*******************\
 |      ROUTING      |
 |   & MIDDLEWARES   |
 \*******************/
+$router = new League\Route\Router;
+
+$strategy = $container->get('app.strategy');
+$strategy->setContainer($container);
+$router->setStrategy($strategy);
+
 $router->middlewares(Framework\array_resolve([
     Framework\Middlewares\HttpsMiddleware::class,
     Framework\Middlewares\TralingSlashMiddleware::class,
