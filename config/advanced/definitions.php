@@ -9,6 +9,7 @@ use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use RestCord\DiscordClient;
+use SlashCommands\Strategies\EndpointStrategy;
 
 return [
 
@@ -29,5 +30,6 @@ return [
     DiscordClient::class => fn(ContainerInterface $c) => new DiscordClient([
         'token' => BOT_TOKEN,
     ]),
+    EndpointStrategy::class => \DI\autowire()->method('setContainer', \DI\get(ContainerInterface::class)),
 
 ];

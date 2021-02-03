@@ -1,10 +1,10 @@
 <?php
 
-use SlashCommands\Strategies\EndpointStrategy;
+use League\Route\Strategy\ApplicationStrategy;
 
 return [
 
     //La stratégie de votre application
-    'app.strategy' => \DI\get(EndpointStrategy::class),
+    'app.strategy' => \DI\get(ApplicationStrategy::class),
 
 ];

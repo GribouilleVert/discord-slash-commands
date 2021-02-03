@@ -27,13 +27,8 @@ $strategy = $container->get('app.strategy');
 $strategy->setContainer($container);
 $router->setStrategy($strategy);
 
-$router->middlewares(Framework\array_resolve([
-    Framework\Middlewares\HttpsMiddleware::class,
-    Framework\Middlewares\TralingSlashMiddleware::class,
-    Framework\Middlewares\MethodDetectorMiddleware::class,
-], $container));
-
-$router->post('/endpoint', [SlashCommands\Controllers\AppController::class, 'endpoint']);
+$router->post('/endpoint', [SlashCommands\Controllers\AppController::class, 'endpoint'])
+    ->setStrategy($container->get(SlashCommands\Strategies\EndpointStrategy::class));
 
 //---------------------
 
