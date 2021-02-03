@@ -8,6 +8,7 @@ use Laminas\Diactoros\ResponseFactory;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use RestCord\DiscordClient;
 use SlashCommands\Strategies\EndpointStrategy;
 
@@ -30,6 +31,7 @@ return [
     DiscordClient::class => fn(ContainerInterface $c) => new DiscordClient([
         'token' => BOT_TOKEN,
     ]),
+    ResponseFactoryInterface::class => \DI\get(ResponseFactory::class),
     EndpointStrategy::class => \DI\autowire()->method('setContainer', \DI\get(ContainerInterface::class)),
 
 ];
