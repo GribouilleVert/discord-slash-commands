@@ -1,9 +1,9 @@
 <?php
 namespace App\Commands;
 
-use App\Utils\Commands\Interaction;
-use App\Utils\Commands\InteractionApplicationCommandCallbackData;
-use App\Utils\Commands\InteractionResponse;
+use SlashCommands\Utils\Commands\Interaction;
+use SlashCommands\Utils\Commands\InteractionApplicationCommandCallbackData;
+use SlashCommands\Utils\Commands\InteractionResponse;
 
 class TestCommand {
 
