@@ -20,9 +20,7 @@ class ApplicationCommandInteractionDataOption {
             $this->value = $data->value;
             $this->type = self::TYPE_VALUE;
         } else {
-            if (is_array($data->options??null)) {
-                $this->options = new ApplicationCommandInteractionDataOptions($data->options);
-            }
+            $this->options = new ApplicationCommandInteractionDataOptions($data->options ?? []);
             $this->type = self::TYPE_SUBCOMMAND;
         }
     }
