@@ -1,22 +1,16 @@
 <?php
 
-use Buzz\Client\MultiCurl;
 use Framework\Factories\EngineFactory;
 use Framework\Services\Session\Lithium;
 use Framework\Services\Session\SessionInterface;
-use Laminas\Diactoros\ResponseFactory;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\ResponseFactoryInterface;
-use RestCord\DiscordClient;
-use SlashCommands\Strategies\EndpointStrategy;
 
 return [
 
     PDO::class => function (ContainerInterface $c) {
         $pdo = new PDO(
-            "{$c->get('database.ty[e')}:host={$c->get('database.host')};port={$c->get('database.port')};dbname={$c->get('database.dbname')};charset=UTF8",
+            "{$c->get('database.type')}:host={$c->get('database.host')};port={$c->get('database.port')};dbname={$c->get('database.dbname')};charset=UTF8",
             $c->get('database.username'),
             $c->get('database.password'),
         );
@@ -26,12 +20,5 @@ return [
     },
     SessionInterface::class => \DI\autowire(Lithium::class),
     Engine::class => \DI\factory(EngineFactory::class),
-    ClientInterface::class => \DI\autowire(MultiCurl::class)
-        ->constructor(new ResponseFactory()),
-    DiscordClient::class => fn(ContainerInterface $c) => new DiscordClient([
-        'token' => BOT_TOKEN,
-    ]),
-    ResponseFactoryInterface::class => \DI\get(ResponseFactory::class),
-    EndpointStrategy::class => \DI\autowire()->method('setContainer', \DI\get(ContainerInterface::class)),
 
 ];

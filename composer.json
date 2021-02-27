@@ -1,5 +1,5 @@
 {
-    "name": "vasco/discord-slash-commands",
+    "name": "underscore-blank/underscore-framework",
     "description": "Framework php",
     "type": "framework",
     "license": "Private",
@@ -13,8 +13,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "App/",
-            "Framework\\": "Framework/",
-            "SlashCommands\\":  "SlashCommands/"
+            "Framework\\": "Framework/"
         },
         "files": [
             "config/constants.php",
@@ -23,25 +22,19 @@
         ]
     },
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "ext-pdo": "*",
-        "ext-json": "*",
-        "ext-http": "*",
         
         "league/route": "^4.5",
-        "league/plates": "^3.3",
+        "league/plates": "^3",
         "php-di/php-di": "^6.3",
-        "laminas/laminas-diactoros": "^2.4",
-        "laminas/laminas-httphandlerrunner": "^1.2",
+        "laminas/laminas-diactoros": "^2",
+        "laminas/laminas-httphandlerrunner": "^1",
         "robmorgan/phinx": "^0.12.4",
-        "pagerfanta/pagerfanta": "^2.4",
-        "paragonie/halite": "4",
-        "kriswallsmith/buzz": "^1.2",
-        "sentry/sdk": "^3.1",
-        "restcord/restcord": "^0.5.0"
+        "pagerfanta/pagerfanta": "^2.7"
     },
     "require-dev": {
-        "middlewares/whoops": "^2.0",
-        "symfony/var-dumper": "^5.1"
+        "middlewares/whoops": "^2",
+        "symfony/var-dumper": "^5"
     }
 }
