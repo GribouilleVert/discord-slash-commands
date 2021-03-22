@@ -2,11 +2,8 @@
 
 define('PRODUCTION', false);
 
-define('PUBLIC_KEY', 'Your discord public key');
+define('PUBLIC_KEY', '24927dbb7d20790a8c71193a2de5b6a93431f38186b9ad0390021d4d0a6a308a');
 define('BOT_TOKEN', null); #The token of your bot if you plan to use discord api
-
-//Set to your sentry dsn to enable sentry error catching
-define('SENTRY_DSN', null);
 
 //Ignore request timestamp
 //WARNING: DO NOT ENABLE IN PRODUCTION

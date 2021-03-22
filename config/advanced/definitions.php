@@ -1,11 +1,13 @@
 <?php
 
+use Buzz\Client\MultiCurl;
 use Framework\Factories\EngineFactory;
 use Framework\Services\Session\Lithium;
 use Framework\Services\Session\SessionInterface;
 use Laminas\Diactoros\ResponseFactory;
 use League\Plates\Engine;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 
 return [
@@ -23,5 +25,7 @@ return [
     SessionInterface::class => \DI\autowire(Lithium::class),
     Engine::class => \DI\factory(EngineFactory::class),
     ResponseFactoryInterface::class => \DI\autowire(ResponseFactory::class),
+    ClientInterface::class => \DI\autowire(MultiCurl::class)
+        ->constructor(\DI\get(ResponseFactory::class)),
 
 ];
