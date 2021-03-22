@@ -3,6 +3,13 @@ chdir(dirname(__DIR__));
 
 require_once 'vendor/autoload.php';
 
+if (SENTRY_DSN AND SENTRY_ALL) {
+    Sentry\init([
+        'dsn' => SENTRY_DSN,
+        'capture_silenced_errors' => true,
+    ]);
+}
+
 /******************\
 |       APP        |
 \******************/
