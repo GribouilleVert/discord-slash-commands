@@ -13,11 +13,13 @@ class InteractionResponse {
 
     /**
      * @const Acknowledge the reception without sending a response
+     * @deprecated
      */
     public const TYPE_ACKNOWLEDGE = 0x2;
 
     /**
      * @const Sends back a message
+     * @deprecated
      */
     public const TYPE_MESSAGE = 0x3;
 
@@ -29,7 +31,7 @@ class InteractionResponse {
     /**
      * @const Display the user input back
      */
-    public const TYPE_ACKNOWLEDGE_WITH_SOURCE = 0x5;
+    public const DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 0x5;
 
     public int $type;
     private ?InteractionApplicationCommandCallbackData $data;

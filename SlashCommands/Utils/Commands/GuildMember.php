@@ -6,7 +6,7 @@ use function Framework\detect_date;
 
 class GuildMember {
 
-    public ?object $user;
+    public ?User $user;
     public ?string $nick;
     public array $roles;
     public DateTime $joinedAt;

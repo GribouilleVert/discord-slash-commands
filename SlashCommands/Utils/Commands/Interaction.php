@@ -14,6 +14,7 @@ class Interaction {
     public ?string $guildId;
     public ?string $channelId;
     public ?GuildMember $member;
+    public ?User $user;
     private string $token;
     public int $version;
 
@@ -22,9 +23,10 @@ class Interaction {
         $this->id = $data->id;
         $this->type = $data->type;
         $this->data = isset($data->data) ? new ApplicationCommandInteractionData($data->data) : null;
-        $this->guildId = $data->guild_id;
-        $this->channelId = $data->channel_id;
-        $this->member = $data->member !== null ? new GuildMember($data->member) : null;
+        $this->guildId = $data->guild_id??null;
+        $this->channelId = $data->channel_id??null;
+        $this->member = (isset($data->member) AND $data->member !== null) ? new GuildMember($data->member) : null;
+        $this->user = (isset($data->user) AND $data->user !== null) ? new User($data->user) : null;
         $this->token = $data->token;
         $this->version = $data->version;
     }
