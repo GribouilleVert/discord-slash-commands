@@ -45,6 +45,18 @@ class ApplicationCommandInteractionDataOptions implements Countable, ArrayAccess
         return $this->options[$this->commandsIndex[0]];
     }
 
+    /**
+     * @throws Exception Si l'interaction n'es pas une commande
+     */
+    public function parseOptions()
+    {
+        $options = [];
+        foreach ($this->valuesIndex as $name => $index){
+            $options[$name] = $this->options[$index];
+        }
+        return $options;
+    }
+
     public function current(): ApplicationCommandInteractionDataOption
     {
         return $this->options[$this->index];

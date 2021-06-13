@@ -7,6 +7,7 @@ class User {
     public string $username;
     public string $discriminator;
     public ?string $avatar;
+    public bool $bot;
 
     public function __construct(object $data)
     {
@@ -14,6 +15,7 @@ class User {
         $this->username = $data->username;
         $this->discriminator = $data->discriminator;
         $this->avatar = $data->avatar;
+        $this->bot = $data->bot??false;
     }
 
     public function getFullTag(): string

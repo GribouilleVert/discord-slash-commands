@@ -8,6 +8,7 @@ class InteractionApplicationCommandCallbackData {
     private bool            $tts;
     private array $embeds;
     private bool  $ephemeral;
+    private array $components;
 
     /**
      * InteractionApplicationCommandCallbackData constructor.
@@ -22,13 +23,15 @@ class InteractionApplicationCommandCallbackData {
         ?AllowedMentions $allowedMentions = null,
         bool $tts = false,
         array $embeds = [],
-        bool $ephemeral = false
+        bool $ephemeral = false,
+        array $components = []
     ) {
         $this->content = $content;
         $this->allowedMentions = $allowedMentions ?? new AllowedMentions();
         $this->tts = $tts;
         $this->embeds = $embeds;
         $this->ephemeral = $ephemeral;
+        $this->components = $components;
     }
 
     /**
@@ -42,6 +45,7 @@ class InteractionApplicationCommandCallbackData {
             'embeds' => $this->embeds,
             'allowed_mentions' => $this->allowedMentions->serialize(),
             'flags' => $this->ephemeral ? 64 : 0,
+            'components' => $this->components
         ];
     }
 

@@ -12,18 +12,6 @@ class InteractionResponse {
     public const TYPE_PONG = 0x1;
 
     /**
-     * @const Acknowledge the reception without sending a response
-     * @deprecated
-     */
-    public const TYPE_ACKNOWLEDGE = 0x2;
-
-    /**
-     * @const Sends back a message
-     * @deprecated
-     */
-    public const TYPE_MESSAGE = 0x3;
-
-    /**
      * @const Sends back a message and display the input
      */
     public const TYPE_MESSAGE_WITH_SOURCE = 0x4;
@@ -32,6 +20,16 @@ class InteractionResponse {
      * @const Display the user input back
      */
     public const DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 0x5;
+
+    /**
+     * @const For components only, ACK an interaction and edit the original message later; the user does not see a loading state
+     */
+    public const TYPE_DEFERRED_UPDATE_MESSAGE = 0x6;
+
+    /**
+     * @const For components only, edit the message the component was attached to
+     */
+    public const TYPE_MESSAGE_UPDATE = 0x7;
 
     public int $type;
     private ?InteractionApplicationCommandCallbackData $data;
