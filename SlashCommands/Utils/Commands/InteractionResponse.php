@@ -12,18 +12,6 @@ class InteractionResponse {
     public const TYPE_PONG = 0x1;
 
     /**
-     * @const Acknowledge the reception without sending a response
-     * @deprecated
-     */
-    public const TYPE_ACKNOWLEDGE = 0x2;
-
-    /**
-     * @const Sends back a message
-     * @deprecated
-     */
-    public const TYPE_MESSAGE = 0x3;
-
-    /**
      * @const Sends back a message and display the input
      */
     public const TYPE_MESSAGE_WITH_SOURCE = 0x4;

@@ -8,9 +8,9 @@ use const JSON_PRETTY_PRINT;
 
 class JsonResponse extends InteractionResponse {
 
-    public function __construct($object, int $type = InteractionResponse::TYPE_MESSAGE)
+    public function __construct($object, int $type = InteractionResponse::TYPE_MESSAGE_WITH_SOURCE)
     {
-        if (!in_array($type, [InteractionResponse::TYPE_MESSAGE_WITH_SOURCE, InteractionResponse::TYPE_MESSAGE])) {
+        if (!in_array($type, [InteractionResponse::TYPE_MESSAGE_WITH_SOURCE])) {
             throw new Exception('Json response type must either be message with or without source');
         }
 
