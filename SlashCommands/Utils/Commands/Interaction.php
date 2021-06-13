@@ -7,6 +7,7 @@ class Interaction {
 
     public const TYPE_PING = 0x1; //ACK Type
     public const TYPE_APPLICATION_COMMAND = 0x2; //User Command;
+    public const TYPE_APPLICATION_BUTTON = 0x3; //Button input;
 
     public string $id;
     public int $type;
@@ -17,6 +18,7 @@ class Interaction {
     public ?User $user;
     private string $token;
     public int $version;
+    public ?Message $message;
 
     public function __construct(object $data)
     {
@@ -29,6 +31,7 @@ class Interaction {
         $this->user = (isset($data->user) AND $data->user !== null) ? new User($data->user) : null;
         $this->token = $data->token;
         $this->version = $data->version;
+        $this->message = (isset($data->message) AND $data->message !== null) ? new Message($data->message) : null;
     }
 
     /**

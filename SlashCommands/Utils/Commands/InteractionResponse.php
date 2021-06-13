@@ -21,6 +21,16 @@ class InteractionResponse {
      */
     public const DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 0x5;
 
+    /**
+     * @const For components only, ACK an interaction and edit the original message later; the user does not see a loading state
+     */
+    public const TYPE_DEFERRED_UPDATE_MESSAGE = 0x6;
+
+    /**
+     * @const For components only, edit the message the component was attached to
+     */
+    public const TYPE_MESSAGE_UPDATE = 0x7;
+
     public int $type;
     private ?InteractionApplicationCommandCallbackData $data;
 
